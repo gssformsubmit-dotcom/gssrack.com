@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> blogs | Gudheniya Storage Solutions</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root { --primary: #004B93; --dark-blue: #004883; --accent: #ff6600; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #ffffff; color: #333; overflow-x: hidden; width: 100%; }
+
+        /* --- NAVIGATION STYLES --- */
+        header { 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: #fff; 
+            transition: all 0.4s ease; 
+        }
+        .top-bar { 
+            background: #ff6600; color: #ffffff; height: 45px; 
+            display: flex; align-items: center; justify-content: flex-end; 
+            padding: 0 5%; gap: 20px; transition: all 0.4s ease; overflow: hidden;
+        }
+        .top-bar a { color: #fff !important; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        
+        #nav { 
+            height: 90px; width: 100%; display: flex; 
+            align-items: center; justify-content: space-between; 
+            padding: 0 5%; transition: all 0.4s ease; 
+        }
+        #nav img { height: 80px; width: auto; object-fit: contain; cursor: pointer; }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: #004B93; text-decoration: none; font-weight: 800; font-size: 14px; text-transform: uppercase; }
+        .brochure-nav-btn { background: #ff6600; color: #fff !important; padding: 12px 22px; border-radius: 5px; display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: bold;}
+        
+        .menu-toggle { display: none; font-size: 30px; color: #004B93; cursor: pointer; }
+
+        /* Shrink Effect Logic */
+        header.shrunk .top-bar { height: 0; opacity: 0; padding: 0; }
+        header.shrunk #nav { height: 65px; }
+        header.shrunk #nav img { height: 45px; }
+
+        /* Mobile Overlay */
+        .mobile-overlay { 
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100%; 
+            background: #fff; z-index: 3000; transition: 0.4s; padding: 40px 25px; 
+            box-shadow: -10px 0 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 25px; 
+        }
+        .mobile-overlay.active { right: 0; }
+        .mobile-overlay a { font-size: 20px; color: #004B93; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f1f1f1; padding-bottom: 12px; }
+
+        /* Breadcrumbs */
+        .breadcrumb-area { margin-top: 135px; background: #f9f9f9; padding: 25px 5%; border-bottom: 1px solid #eee; }
+        .breadcrumb-area a { text-decoration: none; font-size: 22px; color: var(--accent); font-weight: 800; text-transform: uppercase; }
+        .breadcrumb-area span.sep { color: #999; margin: 0 12px; font-weight: bold; }
+        .breadcrumb-area span.curr { font-size: 22px; color: #6c757d; font-weight: 800; text-transform: uppercase; }
+
+        /* Blog Grid */
+        .content-wrapper { padding: 50px 5%; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        .blog-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: transform 0.3s ease; }
+        .blog-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .card-img { width: 100%; height: 230px; object-fit: cover; }
+        .card-body { padding: 25px; }
+        .card-body h3 { font-size: 22px; color: #111; margin-bottom: 15px; font-weight: 700; }
+        .card-body p { color: #555; font-size: 15px; line-height: 1.6; }
+
+        /* Form Section */
+        #enquiry-sec { background: #ffffff; padding: 80px 5%; border-top: 1px solid #eee; }
+        .form-container { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .form-info { flex: 1; min-width: 300px; }
+        .form-info h2 { font-size: 34px; font-weight: 900; margin-bottom: 15px; }
+        .form-box { flex: 1.5; min-width: 300px; }
+        
+        form#blog-enquiry-form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; color: #333; outline: none; }
+        .submit-btn { width: 100%; background: var(--dark-blue); color: #fff; padding: 18px; border: none; border-radius: 8px; font-weight: 800; font-size: 18px; cursor: pointer; transition: 0.3s; }
+        .submit-btn:hover { background: var(--accent); }
+
+        /* Footer */
+        footer { background: #f4f7f6; padding: 60px 5% 30px; border-top: 1px solid #ddd; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-col h4 { margin-bottom: 25px; font-weight: 800; color: #111; font-size: 20px; position: relative; padding-bottom: 12px; }
+        .footer-col h4::after { content: ''; width: 40px; height: 3px; background: var(--accent); position: absolute; bottom: 0; left: 0; }
+        .footer-col p { font-size: 15px; color: #555; margin-bottom: 10px; font-weight: 500; }
+
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            .top-bar { justify-content: center; height: auto; padding: 10px 5px; flex-wrap: wrap; }
+            .top-bar a { font-size: 11px; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            #nav { height: 70px; }
+            #nav img { height: 50px !important; }
+            
+            .breadcrumb-area { margin-top: 120px; padding: 20px 5%; text-align: center; }
+            .breadcrumb-area a, .breadcrumb-area span.curr { font-size: 16px; }
+            
+            .content-wrapper { padding: 30px 5%; }
+            .blog-grid { grid-template-columns: 1fr; gap: 25px; }
+            .card-img { height: 200px; }
+
+            .form-container { padding: 20px 18px; gap: 20px; }
+            .form-info h2 { font-size: 26px; text-align: center; }
+            .form-info p { text-align: center; }
+            .form-info h3 { text-align: center; font-size: 22px !important; }
+            
+            #enquiry-sec { padding: 50px 4%; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-col h4::after { left: 50%; transform: translateX(-50%); }
+        }
+        /* --- MEDIA QUERIES FOR BLOG ENQUIRY SECTION --- */
+@media (max-width: 768px) {
+    #enquiry-sec {
+        padding: 50px 5%; /* Mobile par spacing balance karne ke liye */
+    }
+
+    .form-container {
+        flex-direction: column; /* Info upar aur Form niche smoothly stack hoga */
+        padding: 30px 20px;
+        gap: 30px;
+        text-align: center; /* Mobile view ke liye centered alignment */
+    }
+
+    .form-info {
+        min-width: 100%;
+    }
+
+    .form-info h2 {
+        font-size: 28px; /* Heading size optimized for phone */
+        line-height: 1.2;
+    }
+
+    .form-info p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .form-info h3 {
+        font-size: 24px !important; /* Phone number highlight karne ke liye */
+    }
+
+    .form-box {
+        min-width: 100%;
+    }
+
+    /* Form inputs ko touch-friendly banane ke liye */
+    #blog-enquiry-form input, 
+    #blog-enquiry-form textarea {
+        padding: 12px;
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .submit-btn {
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <a href="mailto:sales@gssrack.com"><i class="fas fa-envelope"></i> sales@gssrack.com</a>
+            <a href="https://wa.me/919897091488"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="tel:9897091488"><i class="fas fa-phone-alt"></i> +91 9897091488</a>
+        </div>
+        <nav id="nav">
+            <img src="logo12.png" alt="GSS Logo" onclick="location.href='index.html'">
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+            <div class="nav-links">
+                <a href="index.html" style="font-size: 20px;">Home</a>
+                <a href="index.html#product-viewer-section" style="font-size: 20px;">Products</a>
+                <a href="aboutus.html" style="font-size: 20px;">About us</a>
+                <a href="blogs.html" style="font-size: 20px; color: #ff6600;">Blogs</a>
+                <a href="javascript:void(0)" class="brochure-nav-btn" onclick="location.href='index.html'" style="font-size: 20px; margin-left: 40px;">
+                    <i class="fas fa-file-download"></i> Brochure
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-overlay" id="mobileMenu">
+        <div style="text-align: right; font-size: 30px; cursor: pointer;" onclick="toggleMenu()">×</div>
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="index.html#product-viewer-section" onclick="toggleMenu()">Products</a>
+        <a href="aboutus.html" onclick="toggleMenu()">About Us</a>
+        <a href="blogs.html" onclick="toggleMenu()">Blogs</a>
+    </div>
+
+    <div class="breadcrumb-area">
+        <a href="index.html">HOME</a> <span class="sep">›</span> <span class="curr">OUR BLOGS</span>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="blog-grid" id="blog-grid">
+            <div class="blog-card">
+                <img src="img7.png" class="card-img">
+                <div class="card-body">
+                    <h3>Heavy Duty Pallet Racking</h3>
+                    <p>Optimizing warehouse space with high-tensile steel structures designed for heavy industrial loads and maximum durability in busy logistics hubs.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img10.png" class="card-img">
+                <div class="card-body">
+                    <h3>Modular Mezzanine Floors</h3>
+                    <p>Double your floor area with modular mezzanine solutions. Quick installation and zero site welding for rapid business expansion and storage growth.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img3.png" class="card-img">
+                <div class="card-body">
+                    <h3>MS Slotted Angle Racks</h3>
+                    <p>The most versatile shelving solution for retail stores, offices, and small industrial godowns across India. Adjustable and easy to assemble.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img4.png" class="card-img">
+                <div class="card-body">
+                    <h3>7-Tank Powder Coating</h3>
+                    <p>Understanding why GSS uses specialized 7-tank powder coating for superior scratch and rust resistance, ensuring your racks last for decades.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img8.png" class="card-img">
+                <div class="card-body">
+                    <h3>Warehouse Safety 2026</h3>
+                    <p>Implementing proper rack inspections and load labels to ensure a safe working environment for your staff and preventing accidental collapses.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img5.png" class="card-img">
+                <div class="card-body">
+                    <h3>Drive-in Racking Density</h3>
+                    <p>Ideal for cold storage and large volume single-SKU storage. This system allows forklifts to drive directly into the lanes for maximum density.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img1.jpg" class="card-img">
+                <div class="card-body">
+                    <h3>Cantilever Racks</h3>
+                    <p>Safe storage for pipes, timber, and steel bars with unobstructed horizontal access for easy forklift handling of long and heavy items.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img2.jpg" class="card-img">
+                <div class="card-body">
+                    <h3>FIFO Flow Racks</h3>
+                    <p>Automated inventory rotation using gravity-fed roller systems. Perfect for food, beverage, and perishable goods sectors to ensure freshness.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img7.png" class="card-img">
+                <div class="card-body">
+                    <h3>Cold Storage Solutions</h3>
+                    <p>Corrosion-resistant galvanized steel solutions specifically engineered for temperature-controlled environments and moisture-heavy areas.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img10.png" class="card-img">
+                <div class="card-body">
+                    <h3>Multi-tier Racking</h3>
+                    <p>Utilizing full vertical height for manual picking operations. Widely used in e-commerce fulfillment and spare parts distribution hubs.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img3.png" class="card-img">
+                <div class="card-body">
+                    <h3>Tool Storage Systems</h3>
+                    <p>Heavy duty lockers and drawer systems for organized workshop management. Keep your industrial tools safe, locked, and easily accessible.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img4.png" class="card-img">
+                <div class="card-body">
+                    <h3>Mobile Compactor Units</h3>
+                    <p>Space-saving high-density mobile shelving for record archives and pharmaceutical clean rooms where space is at a premium.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img8.png" class="card-img">
+                <div class="card-body">
+                    <h3>Bin & Crate Integration</h3>
+                    <p>How to choose the right plastic bin sizes for your shelving and louvre panels to maximize small parts picking and inventory sorting.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img5.png" class="card-img">
+                <div class="card-body">
+                    <h3>Warehouse CAD Design</h3>
+                    <p>Using advanced CAD layouts to optimize aisle widths and forklift movement paths. We provide free design consultation for all new setups.</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="img2.jpg" class="card-img">
+                <div class="card-body">
+                    <h3>Seismic Steel Engineering</h3>
+                    <p>Structural engineering for storage racks in earthquake-prone zones. Our racks are built to prevent product loss and ensure structural integrity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="enquiry-sec">
+        <div class="form-container">
+            <div class="form-info">
+                <h2>Get Your <span style="color:var(--accent)">Free</span> Layout</h2>
+                <p>Consult with our engineers for custom storage solutions.</p>
+                <h3 style="color:var(--accent); font-size: 28px;">📞 +91 9897091488</h3>
+            </div>
+            <div class="form-box">
+                <form id="blog-enquiry-form">
+                    <input type="text" name="Full_Name" placeholder="Full Name" required>
+                    <input type="email" name="Email" placeholder="Business Email" required>
+                    <input type="text" name="State" placeholder="State*" required>
+                    <input type="text" name="City" placeholder="City*" required>
+                    <input type="text" name="Company Name" placeholder="Company name" required>
+                    <input type="tel" name="Mobile_Number" placeholder="Mobile Number" required>
+                    <textarea name="Enquire_Specification" rows="5" placeholder="Share your warehouse dimensions or storage needs..." required></textarea>
+                    <button type="submit" class="submit-btn" id="blogSubmitBtn">SEND ENQUIRY</button>
+                </form>
+                <div id="status" style="margin-top:15px; font-weight:bold; color: var(--accent); display:none;">Success! We will contact you soon.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Our Company</h4>
+                <p><a href="index.html" style="color: inherit; text-decoration: none;">› Home</a></p>
+                <p><a href="aboutus.html" style="color: inherit; text-decoration: none;">› About Us</a></p>
+                <p><a href="index.html#product-viewer-section" style="color: inherit; text-decoration: none;">› Our Products</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Quality Standards</h4>
+                <p>› MSME Certified</p>
+                <p>› Load Tested Designs</p>
+                <p>› 7-Tank Coating Process</p>
+            </div>
+            <div class="footer-col">
+                <h4>About GSS Products</h4>
+                <p>Gudheniya Storage Solutions is India's premier manufacturer of high-performance industrial racking and warehouse storage systems.</p>
+            </div>
+        </div>
+        
+    </footer>
+    <div style="text-align: center; font-size: 13px; color: #999; margin-bottom: 20px; margin-top: 10px;">
+        © 2026 Gudheniya Storage Solutions. All Rights Reserved.
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 15px; padding: 0 5%;">
+        
+        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gss-orange); flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+            <img src="devimg.png" alt="Developer" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <span style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Developed & Maintained by</span>
+            
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 16px; color: #9e3232; font-weight: 800; letter-spacing: 0.5px;">dss_devgroup</span>
+                
+                <a href="https://wa.me/919368005867" target="_blank" title="WhatsApp Us" style="color: #25D366; font-size: 18px; transition: 0.3s;">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                <a href="mailto:dssdevgroup@gmail.com" title="Email Us" style="color: #ea4335; font-size: 18px; transition: 0.3s;">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shrunk');
+            } else {
+                header.classList.remove('shrunk');
+            }
+        });
+
+        // Script URL aur functionality bilkul original hai
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxJ-9njIG2FpU-H9mEoyAUfp2FBHmZsCAAv7SrgdHdvjj8BqzjA87F0Eu1AhdOKYLGGAg/exec';
+        const form = document.getElementById('blog-enquiry-form');
+        const btn = document.getElementById('blogSubmitBtn');
+        const status = document.getElementById('status');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.innerHTML = "Sending...";
+            btn.disabled = true;
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                body: new FormData(form)
+            })
+            .then(() => {
+                status.style.display = "block";
+                form.reset();
+                btn.innerHTML = "SEND ENQUIRY";
+                btn.disabled = false;
+                setTimeout(() => { status.style.display = "none"; }, 5000);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                btn.disabled = false;
+                btn.innerHTML = "SEND ENQUIRY";
+            });
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".blog-card", { 
+            scrollTrigger: { trigger: "#blog-grid", start: "top 95%" },
+            y: 40, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power2.out"
+        });
+    </script>
+</body>
+</html>
