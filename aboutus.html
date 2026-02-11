@@ -112,6 +112,17 @@
             .footer-grid { grid-template-columns: 1fr; }
             .footer-col { grid-column: span 1 !important; }
         }
+        @media (max-width: 768px) {
+        .footer-col {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-col div {
+            justify-content: center;
+        }
+    }
     </style>
 </head>
 <body>
@@ -144,10 +155,12 @@
 
     <section class="about-hero">
         <div class="about-content">
-            <h1>Engineered for Strength. <br>Designed for Space.</h1>
-            <p>Gudheniya Storage Solutions (GSS) is India’s emerging leader in industrial storage systems. We specialize in heavy-duty racking, mezzanine floors, and customized warehouse solutions.</p>
-            <p>Our journey began in 2023 with a single goal: to help businesses optimize their storage capacity without compromising on safety.</p>
-        </div>
+    <h1>Engineered for Strength. <br><span style="color:var(--gss-orange)">Designed for Space.</span></h1>
+    
+    <p>Gudheniya Storage Solution (GSS) is India’s <b>popular</b> and emerging leader in industrial storage systems. We are recognized as the <b>best rack provider in India</b>, specializing in <b>heavy-duty racking</b>, mezzanine floors, and customized warehouse solutions using <b>good material</b>.</p>
+    
+    <p>Our journey began in 2023 with a single goal: to help businesses across <b>Greater Noida</b> and nationwide optimize their storage capacity. We focus on <b>popular</b> industrial designs that ensure every <b>rack provider</b> service we offer meets the highest standards of safety and efficiency.</p>
+</div>
         <div class="about-video-box">
             <video autoplay muted loop playsinline>
                 <source src="videocr.mp4" type="video/mp4">
@@ -192,12 +205,28 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <h3>GSS Profile</h3>
-                <p>Establishing benchmarks in the storage industry through quality, innovation, and client-centric designs.</p>
-                <div style="font-size: 32px; margin-top: 20px;">
-                    <a href="https://www.instagram.com/gudheniya_storage_solutions?igsh=MTVzMjByYnRvbHRydg==" target="_blank" style="color: #E1306C;"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+    <h3>GSS Profile</h3>
+    <p>Establishing benchmarks in the storage industry through quality, innovation, and client-centric designs.</p>
+    <h3>Follow Us</h3>
+    
+    <div style="font-size: 32px; margin-top: 20px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+    <a href="https://www.instagram.com/gudheniya_storage_solutions?igsh=MTVzMjByYnRvbHRydg==" target="_blank" style="color: #E1306C; transition: 0.3s;" title="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+    
+    <a href="https://www.youtube.com/@GudheniyaStorageSolutions" target="_blank" style="color: #FF0000; transition: 0.3s;" title="YouTube">
+        <i class="fab fa-youtube"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/company/gudheniya-storge-solutions/posts/?feedView=all" target="_blank" style="color: #0077B5; transition: 0.3s;" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+    </a>
+
+    <a href="https://share.google/vvzrw1W5QLIbcRgHu" target="_blank" style="color: #4285F4; transition: 0.3s;" title="Google Reviews">
+        <i class="fab fa-google"></i>
+    </a>
+</div>
+</div>
             <div class="footer-col">
                 <h3>Explore</h3>
                 <li><a href="index.html">Home</a></li>
