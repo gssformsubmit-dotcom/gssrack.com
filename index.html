@@ -860,6 +860,56 @@
             margin-bottom: 15px;
         }
     }
+    /* Container for the video and text */
+#hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers vertically */
+    align-items: center;     /* Centers horizontally */
+    text-align: center;
+    overflow: hidden;        /* Prevents scrollbars from video */
+    color: white;            /* Standard text color */
+}
+
+/* The Background Video */
+#hero-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0; /* Isse 0 rakho aur text ko 1 */
+    transform: translate(-50%, -50%); /* Video ko perfect center karne ke liye */
+    object-fit: cover;
+}
+/* The Content Box */
+.hero-content {
+    position: relative; /* Essential to show over absolute video */
+    z-index: 2; /* Video se upar rakhne ke liye */
+    color: white;
+}
+
+/* Styling the H1 */
+#hero-h1 {
+    background-color: rgba(0, 0, 0, 0.5); /* Slightly darker for better readability */
+    padding: 20px 40px;
+    border-radius: 50px;
+    font-size: clamp(2rem, 5vw, 4rem); /* Fluid typography */
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Styling the P tag */
+#hero-p {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    margin: 0 auto;
+    width: fit-content;
+}
     </style>
 </head>
 <body onload="clearRefreshAccess()">
@@ -867,7 +917,7 @@
 
     <header>
         <div class="top-bar">
-            <a href="mailto:sales@gssrack.com"><i class="fas fa-envelope"></i> sales@gssrack.com</a>
+            <a href="mailto:info@gssrack.com"><i class="fas fa-envelope"></i> info@gssrack.com</a>
             <a href="https://wa.me/919897091488"><i class="fab fa-whatsapp"></i> WhatsApp</a>
             <a href="tel:9897091488"><i class="fas fa-phone-alt"></i> +91 9897091488</a>
         </div>
@@ -960,24 +1010,14 @@
     </div>
 
     <section id="hero-section">
-    <video 
-        autoplay 
-        muted 
-        loop 
-        playsinline 
-        preload="metadata" 
-        poster="images/video-placeholder.webp" 
-        id="hero-video-bg">
-        
+    <video autoplay muted loop playsinline preload="metadata" poster="images/video-placeholder.webp" id="hero-video-bg">
         <source src="videocr.webm" type="video/webm">
         <source src="videocr.mp4" type="video/mp4">
-        
-        Your browser does not support the video tag.
     </video>
 
     <div class="hero-content">
-        <h1 id="hero-h1" style="background-color:rgba(128, 128, 128, 0.558); height: auto; border-radius: 30px; padding: 20px 80px; display: inline-block;">Gudheniya Storage Solutions</h1>
-        <p id="hero-p" style="margin-left: 380px; font-size: 32px; text-align: left; width: fit-content; margin-top: 20px;;">Create a new world for storage.</p>
+        <h1 id="hero-h1">Gudheniya Storage Solutions</h1>
+        <p id="hero-p">Create a new world for storage.</p>
     </div>
 </section>
 
@@ -1189,7 +1229,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>sales@gssrack.com</span>
+                    <span>info@gssrack.com</span>
                 </div>
             </div>
         </div>
