@@ -13,7 +13,7 @@
 
     <style>
 
-#dynamic-about { padding: 70px 8%; background: var(--bg-alt); }
+#dynamic-about { padding: 70px 8%; background:#e8eddf; }
 .dynamic-container { display: flex; align-items: center; gap: 60px; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
 .dynamic-text { flex: 1.2; min-width: 320px; }
 .dynamic-text h2 { font-size: 40px; color: var(--gss-blue); margin-bottom: 20px; font-weight: 900; }
@@ -131,7 +131,7 @@
 
         :root {
             --gss-blue: #004B93;
-            --gss-orange: #ff6600;
+            --gss-orange: #ffd500;
             --bg-main: #ffffff; 
             --bg-alt: #f1f5f9;
         }
@@ -151,7 +151,7 @@
         }
         
         .top-bar { 
-            background: #ff6600; 
+            background: #003459; 
             color: #ffffff; 
             height: 45px; 
             display: flex; 
@@ -960,8 +960,18 @@
     </div>
 
     <section id="hero-section">
-    <video autoplay muted loop playsinline id="hero-video-bg">
+    <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        preload="metadata" 
+        poster="images/video-placeholder.webp" 
+        id="hero-video-bg">
+        
+        <source src="videocr.webm" type="video/webm">
         <source src="videocr.mp4" type="video/mp4">
+        
         Your browser does not support the video tag.
     </video>
 
