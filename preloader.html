@@ -1,0 +1,64 @@
+<style>
+    /* Background White aur Screen Full */
+    .layer-loader-screen {
+        position: fixed; width: 100%; height: 100%; top: 0; left: 0;
+        background: #ffffff !important; 
+        z-index: 99999; display: flex;
+        justify-content: center; align-items: center; flex-direction: column;
+        transition: opacity 0.5s ease;
+    }
+
+    .rack-animation-engine { width: 160px; height: 210px; position: relative; margin-bottom: 25px; }
+
+    /* Pillars */
+    .anim-pillar {
+        position: absolute; width: 6px; height: 0; background: #004B93;
+        border-radius: 2px; bottom: 10px;
+    }
+    .anim-pillar.p-left { left: 20px; animation: buildPillar 0.5s forwards; }
+    .anim-pillar.p-right { right: 20px; animation: buildPillar 0.5s forwards; animation-delay: 0.1s; }
+
+    /* Beams (5 rows) - 0.5s to 2.0s ke beech settle honge */
+    .anim-beam { position: absolute; height: 5px; width: 0; background: #ff7a00; left: 26px; border-radius: 1px; opacity: 0; }
+    .anim-beam.b-1 { bottom: 35px; animation: buildBeam 0.3s forwards 0.5s; }
+    .anim-beam.b-2 { bottom: 70px; animation: buildBeam 0.3s forwards 0.7s; }
+    .anim-beam.b-3 { bottom: 105px; animation: buildBeam 0.3s forwards 0.9s; }
+    .anim-beam.b-4 { bottom: 140px; animation: buildBeam 0.3s forwards 1.1s; }
+    .anim-beam.b-5 { bottom: 175px; animation: buildBeam 0.3s forwards 1.3s; }
+
+    /* Plates - Beams ke turant baad */
+    .anim-plate { position: absolute; height: 3px; width: 0; background: #cbd5e1; left: 28px; border-radius: 1px; opacity: 0; }
+    .anim-plate.pl-1 { bottom: 40px; animation: buildPlate 0.2s forwards 0.9s; }
+    .anim-plate.pl-2 { bottom: 75px; animation: buildPlate 0.2s forwards 1.1s; }
+    .anim-plate.pl-3 { bottom: 110px; animation: buildPlate 0.2s forwards 1.3s; }
+    .anim-plate.pl-4 { bottom: 145px; animation: buildPlate 0.2s forwards 1.5s; }
+    .anim-plate.pl-5 { bottom: 180px; animation: buildPlate 0.2s forwards 1.7s; }
+
+    @keyframes buildPillar { to { height: 190px; } }
+    @keyframes buildBeam { to { width: 108px; opacity: 1; } }
+    @keyframes buildPlate { to { width: 104px; opacity: 1; } }
+
+    /* Text & Status */
+    .loader-3d-text { font-size: 24px; font-weight: 900; color: #004B93; margin-top: 15px; text-align: center; }
+    .sub-text { color: #555; font-size: 16px; margin-top: 8px; font-style: italic; }
+</style>
+
+<div class="layer-loader-screen active-mode" id="globalAppLoader">
+    <div class="rack-animation-engine">
+        <div class="anim-pillar p-left"></div>
+        <div class="anim-pillar p-right"></div>
+        <div class="anim-beam b-1"></div> <div class="anim-beam b-2"></div> <div class="anim-beam b-3"></div> <div class="anim-beam b-4"></div> <div class="anim-beam b-5"></div>
+        <div class="anim-plate pl-1"></div> <div class="anim-plate pl-2"></div> <div class="anim-plate pl-3"></div> <div class="anim-plate pl-4"></div> <div class="anim-plate pl-5"></div>
+    </div>
+    <div class="loader-3d-text">WELCOME TO GUDHENIYA STORAGE SOLUTION</div>
+    <div class="sub-text">Create A New World For Storage</div>
+</div>
+
+<script>
+    // 3 second baad loader ko smooth fade out kar do
+    setTimeout(() => {
+        const loader = document.getElementById('globalAppLoader');
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 500);
+    }, 4000);
+</script>
