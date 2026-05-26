@@ -161,6 +161,90 @@
         padding: 15px;
         font-size: 16px;
     }
+    
+}
+/* ==========================================================================
+   FINAL COMPACT FOOTER - ROYAL BLUE + BROWN ACCENTS
+   ========================================================================== */
+
+.gss-bottom-sub-footer {
+    width: 100% !important;
+    background: #003459 !important; /* Royal Blue */
+    padding: 6px 5% !important; /* Extremely thin height */
+    text-align: center !important;
+    color: #fff !important;
+    margin-top: 10px !important;
+    margin-bottom: -20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.sub-footer-wrapper {
+    display: flex !important;
+    flex-direction: row !important; /* Content ek line mein */
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+}
+
+/* Copyright text */
+.footer-copyright-text {
+    font-size: 22px !important;
+    color: #cbd5e1 !important;
+    margin: 0 !important;
+}
+
+/* Developer Badge Container */
+.footer-developer-badge {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.dev-label-text {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-weight: 700 !important;
+}
+
+/* Logo Circle Fix - Border Brown/Bronze color */
+.drutva-footer-logo {
+    height: 28px !important; 
+    width: 28px !important;
+    border-radius: 50% !important; /* Perfectly circular */
+    object-fit: cover !important;
+    border: 2px solid #ffffff !important; /* Bronze/Brown border instead of yellow */
+    background: #fff;
+    vertical-align: middle !important;
+}
+
+/* Developer Name styling */
+.company-brand-link {
+    font-size: 13.5px !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-weight: 800 !important;
+}
+
+/* WhatsApp Icon */
+.dev-social-routing {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+.dev-icon-btn {
+    font-size: 16px !important;
+    color: #25D366 !important;
+    text-decoration: none !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sub-footer-wrapper { flex-direction: column !important; gap: 5px !important; }
 }
     </style>
 </head>
@@ -353,33 +437,24 @@
         </div>
         
     </footer>
-    <div style="text-align: center; font-size: 13px; color: #999; margin-bottom: 20px; margin-top: 10px;">
-        © 2026 Gudheniya Storage Solutions. All Rights Reserved.
-    </div>
-
-    <div style="display: flex; align-items: center; gap: 15px; padding: 0 5%;">
+    <div class="gss-bottom-sub-footer">
+    <div class="sub-footer-wrapper">
+        <div style="font-size: 12px; color: #cbd5e1;">
+            © 2026 Gudheniya Storage Solutions. All Rights Reserved.
+        </div>
         
-        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gss-orange); flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            <img src="devimg.png" alt="Developer" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="footer-developer-badge">
+            <span style="font-size: 11px; text-transform: uppercase;">Developed & Maintained By:</span>
+            <a href="https://drutvatech.com" target="_blank">
+                <img src="drutva.png" class="drutva-footer-logo" alt="Drutva">
+            </a>
+            <span style="font-weight: bold; color: #ffd500;">Drutva Technologies</span>
+            <a href="https://wa.me/919368005867" target="_blank" style="color: #25D366; font-size: 18px;">
+                <i class="fab fa-whatsapp"></i>
+            </a>
         </div>
-
-        <div style="display: flex; flex-direction: column; gap: 5px;">
-            <span style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Developed & Maintained by</span>
-            
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 16px; color: #9e3232; font-weight: 800; letter-spacing: 0.5px;">dss_devgroup</span>
-                
-                <a href="https://wa.me/919368005867" target="_blank" title="WhatsApp Us" style="color: #25D366; font-size: 18px; transition: 0.3s;">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-
-                <a href="mailto:dssdevgroup@gmail.com" title="Email Us" style="color: #ea4335; font-size: 18px; transition: 0.3s;">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-        </div>
-
     </div>
+</div>
 </div>
     <script>
         function toggleMenu() {
